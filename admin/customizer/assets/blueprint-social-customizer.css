@@ -1,0 +1,49 @@
+
+.empty-link {
+    display:none;
+}
+
+li.ui-state-default {
+    display:flex;
+    align-items:center;
+	border:1px solid #999;
+	background-color:#f1fcfe;
+    margin-bottom:16px;
+	padding: 4px 8px;
+}
+li.ui-state-default.onthemove {
+	background-color: #b0effc;
+}
+li.ui-state-default.changed {
+	background-color: #d1f6fd;
+
+}
+.sort_handle {
+    display:none;
+}
+
+.enable-sort .sort_handle {
+    display:block;
+}
+#save_sort {
+    display:none;
+}
+
+.network-url {
+    font-style:italic;
+}
+.network-inputs {
+    padding: 12px 12px;
+}
+
+
+/* Interaction Cues
+----------------------------------*/
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+	border: 1px solid #3dd9f7;
+	background: #6ee2f9;
+	color: #777620;
+	height: 40px !important;
+}
