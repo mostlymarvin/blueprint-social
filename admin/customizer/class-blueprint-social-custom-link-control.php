@@ -31,11 +31,9 @@ function blueprint_define_custom_controls( $wp_customize ) {
             public function enqueue() {
                 wp_enqueue_script( 'jquery-ui-sortable' );
             
-                wp_enqueue_script( 'blueprint-social-customizer', plugin_dir_url( __FILE__ ) . 'assets/blueprint-social-customizer-min.js', array( 'jquery', 'jquery-ui-sortable', 'customize-controls' ), BLUEPRINT_SOCIAL_VERSION,  true );
+                wp_enqueue_script( 'blueprint-social-customizer', plugin_dir_url( __FILE__ ) . 'assets/blueprint-social-customizer.js', array( 'jquery', 'jquery-ui-sortable', 'customize-controls' ), BLUEPRINT_SOCIAL_VERSION,  true );
                 
                 wp_enqueue_style( 'blueprint-social-customizer', plugin_dir_url( __FILE__ ) . 'assets/blueprint-social-customizer.css', array(), BLUEPRINT_SOCIAL_VERSION, 'all' );
-
-                wp_enqueue_style( 'blueprint-social-icons', plugin_dir_url( __FILE__ ) . '../../public/css/blueprint-social-public.css', array(), BLUEPRINT_SOCIAL_VERSION, 'all' );
 
             }
             
@@ -105,34 +103,36 @@ function blueprint_define_custom_controls( $wp_customize ) {
 
             function get_saved_value() {
                 $links = get_option( $this->id, false);
+                $links = json_decode( $links, true );
+
                 $markup = false;
 
                 if( $links ) {
-                $links = explode(',', $links);
                 
-                $list = array();
                 foreach($links as $link) {
-                    $link = explode( '|', $link );
-                    
-                    if( $link[0] && $link[1]) {
+                   
+                    $network = $link['network'];
+                    $url = $link['url'];
 
-                    $url = esc_attr( $link[1] );
-
-                    $placeholder = 'http://website.com';
-
-                    if( $link[0] === 'email' ) {
-                        $url = sanitize_email( $link[1]);
-                        $placeholder = 'email@yourwebsite.com';
-                    }
+                    if( $url && $network ) {
+                        $placeholder = 'http://website.com';
+                        
+                        if( $network === 'email' ) {
+                            $url = sanitize_email( $url);
+                            $placeholder = 'email@yourwebsite.com';
+                        } else {
+                            $url = esc_url( $url );
+                        }
                     
                     $markup .= sprintf(
                         '<li class="ui-state-default repeater">
                         <span class="dashicons dashicons-move sort_handle"></span>
                         <div class="network-inputs">%1$s<input type="text" value="%2$s" placeholder="%3$s" class="network-url"/></div>
                         <div class="remove_link"><span class="dashicons dashicons-dismiss"></span></div></li>',
-                        $this->get_social_options( $this->id, $link[0] ),
+                        $this->get_social_options( $this->id, $network ),
                         $url,
-                        $placeholder
+                        $placeholder,
+                        $network
                     );
                     }
                 }
@@ -247,22 +247,25 @@ function blueprint_define_custom_controls( $wp_customize ) {
                     'tag' => 'vine'),
                 array(
                     'name' => 'YouTube', 
-                    'tag' => 'youtube')
+                    'tag' => 'youtube'),
+                array(
+                    'name' => 'Custom', 
+                    'tag' => 'custom')
                 );
             
                 $networks = apply_filters( 'mmkbp_social_networks', $networks );
-                $options = '';
-
-                
+                $options = '';    
                 
                 foreach( $networks as $network ) {
                     
                     $selected = '';
                     $icon_class = '';
+                    
 
                     if( $value === $network['tag'] ) {
                     $selected = "selected='selected'";
                     }
+                    
                     
                     if( !empty( $value ) ) {
                         $icon_class = esc_attr('admin-icon icon-' . $value);

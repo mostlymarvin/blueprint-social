@@ -53,6 +53,7 @@
 	$( '.repeater select' ).change(function () {
 		var selectval = this.value;
 		$(this).next('.network-choice').val(selectval);
+
 		bpsGetAllInputs($('#blueprint-social-list').parent());
 
 	});
@@ -67,21 +68,27 @@
 
 
 	function bpsGetAllInputs($element) {
-		var inputValues = $element.find('.network-url').map(function() {
-			
+		var networks = [];
+
+		$( ".network-url" ).each(function( index ) {
 			var netchoice = $(this).prev('.network-choice').val();
 			var neturl = $(this).val();
+			
+			networks.push({
+				'network' :netchoice,
+				'url' :neturl,
+			});
+		  });
 
-			var network = netchoice + '|' + neturl;
-			return network;
-
-		}).toArray();
-
-		$element.find('.customize-control-sortable-repeater').val(inputValues);
+		 var networkObj =  JSON.stringify( networks );
+		 
+		
+		$element.find('.customize-control-sortable-repeater').val(networkObj);
 		
 		$element.find('.customize-control-sortable-repeater').trigger('change');
 		
 		}
+		
 
 	});
 	

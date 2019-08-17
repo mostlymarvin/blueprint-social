@@ -9,31 +9,30 @@
 
 
 $links = get_option('blueprint_social_links');
+$links = json_decode( $links, true );
 
 $markup = '';
 $list = '';
 
 if( $links ) {
-	
-	$links = explode(',', $links);
         	
 	foreach($links as $link) {
 		
-		$link = explode( '|', $link );
-              
-            if( $link[0] && $link[1]) {
+		$network = $link['network'];
+		$url = $link['url'];
 
-				$network = $link[0];
-				$url = esc_url( $link[1] );
+            if( $network && $url ) {
 
 				if( $network === 'email' ) {
-					$url = sanitize_email( $link[1] );
+					$url = sanitize_email( $url );
+				} else {
+					$url = esc_url( $url );
 				}
 
 				$list .= sprintf(
 					'<li><a href="%1$s" class="%2$s icon-%2$s" target="_blank"><span>%2$s</span></a></li>',
 					$url,
-					esc_attr($network)
+					esc_attr( $network )
 				);
 
 			}

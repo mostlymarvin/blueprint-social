@@ -18,6 +18,7 @@ li.ui-state-default.changed {
 	background-color: #d1f6fd;
 
 }
+.custom-class,
 .sort_handle {
     display:none;
 }

@@ -89,12 +89,12 @@ class Blueprint_Social_Public {
 
 		$blueprint_social = get_option('blueprint_social_display');
 		
-        $button_bg = isset($blueprint_social['color_button_background']) ? $blueprint_social['color_button_background'] : $defaults['bg'];
-        $button_color = isset($blueprint_social['color_button_text_color']) ? $blueprint_social['color_button_text_color'] : $defaults['color'];
-        $hover_bg = isset($blueprint_social['color_button_hover_background']) ? $blueprint_social['color_button_hover_background'] : $defaults['hov_bg'];
-		$hover_color = $blueprint_social['color_button_hover_text_color'] ? $blueprint_social['color_button_hover_text_color'] : $defaults['hov_color'];
+        $button_bg = isset($blueprint_social['background']) ? $blueprint_social['background'] : $defaults['bg'];
+        $button_color = isset($blueprint_social['color']) ? $blueprint_social['color'] : $defaults['color'];
+        $hover_bg = isset($blueprint_social['hover_background']) ? $blueprint_social['hover_background'] : $defaults['hov_bg'];
+		$hover_color = $blueprint_social['hover_color'] ? $blueprint_social['hover_color'] : $defaults['hov_color'];
 		
-		$custom_css = isset($blueprint_social['color_custom_css']) ? $blueprint_social['color_custom_css'] : '';
+		$custom_css = isset($blueprint_social['custom_css']) ? $blueprint_social['custom_css'] : '';
 		
 		$grayscale = isset($blueprint_social['grayscale']) ? $blueprint_social['grayscale'] : false;
 		

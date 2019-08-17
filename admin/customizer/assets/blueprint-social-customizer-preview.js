@@ -13,7 +13,7 @@
   
     
     // Preview the MBT Button Background Color
-    wp.customize( 'blueprint_social_display[color_button_background]', function( value ) {
+    wp.customize( 'blueprint_social_display[background]', function( value ) {
       value.bind( function( newval ) {
        $background = newval;
         $( 'ul.blueprint-social li a' ).css({
@@ -24,7 +24,7 @@
     } );
   
     // Preview the MBT Button Text Color
-    wp.customize( 'blueprint_social_display[color_button_text_color]', function( value ) {
+    wp.customize( 'blueprint_social_display[color]', function( value ) {
       value.bind( function( newval ) {
         $color = newval;
         $( 'ul.blueprint-social li a' ).css({
@@ -34,7 +34,7 @@
     } );
   
     //Hover?
-    wp.customize( 'blueprint_social_display[color_button_hover_background]', function( value ) {
+    wp.customize( 'blueprint_social_display[hover_background]', function( value ) {
       value.bind( function( newval ) {
         $( 'ul.blueprint-social li a' ).hover(function() {
           $(this).css({
@@ -49,7 +49,7 @@
     } );
   
     // Preview the MBT Button Text Color
-    wp.customize( 'blueprint_social_display[color_button_hover_text_color]', function( value ) {
+    wp.customize( 'blueprint_social_display[hover_color]', function( value ) {
       value.bind( function( newval ) {
         $( 'ul.blueprint-social li a' ).hover(function() { 
           $(this).css({

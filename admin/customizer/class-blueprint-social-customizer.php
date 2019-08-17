@@ -114,7 +114,7 @@ class Blueprint_Social_Customizer {
        
        
            //Custom CSS
-           $wp_customize->add_setting('blueprint_social_display[color_custom_css]', array(
+           $wp_customize->add_setting('blueprint_social_display[custom_css]', array(
              'default'           => '',
              'type'              => 'option',
              'capability'        => 'manage_options',
@@ -122,16 +122,16 @@ class Blueprint_Social_Customizer {
              'sanitize_callback' => 'strip_tags'
            ) );
                //Custom CSS Input
-               $wp_customize->add_control( 'blueprint_social_display[color_custom_css]', array(
+               $wp_customize->add_control( 'blueprint_social_display[custom_css]', array(
                  'label'      => __( 'Custom CSS', 'blueprint-social' ),
                  'section'  => 'blueprint_social_display_settings_section',
-                 'settings' => 'blueprint_social_display[color_custom_css]',
+                 'settings' => 'blueprint_social_display[custom_css]',
                  'type'     => 'textarea',
                  'priority'   => 100
                ) );
        
            //Background Color 
-           $wp_customize->add_setting('blueprint_social_display[color_button_background]', array(
+           $wp_customize->add_setting('blueprint_social_display[background]', array(
              'default'           => '#484848',
              'type'              => 'option',
              'capability'        => 'manage_options',
@@ -142,17 +142,17 @@ class Blueprint_Social_Customizer {
                $wp_customize->add_control( 
                  new WP_Customize_Color_Control( 
                    $wp_customize, 
-                   'blueprint_social_display[color_button_background]', 
+                   'blueprint_social_display[background]', 
                    array(
                      'label'      => __( 'Icons background color', 'blueprint-social' ),
                      'section'    => 'blueprint_social_display_settings_section',
-                     'settings'   => 'blueprint_social_display[color_button_background]',
+                     'settings'   => 'blueprint_social_display[background]',
                      'priority'   => 10
                      ) ) 
                  );
        
            //Text Color 
-           $wp_customize->add_setting('blueprint_social_display[color_button_text_color]', array(
+           $wp_customize->add_setting('blueprint_social_display[color]', array(
              'default'           => '#ffffff',
              'type'              => 'option',
              'capability'        => 'manage_options',
@@ -163,17 +163,17 @@ class Blueprint_Social_Customizer {
                $wp_customize->add_control( 
                  new WP_Customize_Color_Control( 
                    $wp_customize, 
-                   'blueprint_social_display[color_button_text_color]', 
+                   'blueprint_social_display[color]', 
                    array(
                      'label'      => __( 'Icon color', 'blueprint-social' ),
                      'section'    => 'blueprint_social_display_settings_section',
-                     'settings'   => 'blueprint_social_display[color_button_text_color]',
+                     'settings'   => 'blueprint_social_display[color]',
                      'priority'   => 20
                      ) ) 
                  );
        
            //Hover State Background
-           $wp_customize->add_setting('blueprint_social_display[color_button_hover_background]', array(
+           $wp_customize->add_setting('blueprint_social_display[hover_background]', array(
              'default'           => '#727272',
              'type'              => 'option',
              'capability'        => 'manage_options',
@@ -184,17 +184,17 @@ class Blueprint_Social_Customizer {
                $wp_customize->add_control( 
                  new WP_Customize_Color_Control( 
                    $wp_customize, 
-                   'blueprint_social_display[color_button_hover_background]', 
+                   'blueprint_social_display[hover_background]', 
                    array(
                      'label'      => __( 'Icon background hover color', 'blueprint-social' ),
                      'section'    => 'blueprint_social_display_settings_section',
-                     'settings'   => 'blueprint_social_display[color_button_hover_background]',
+                     'settings'   => 'blueprint_social_display[hover_background]',
                      'priority'   => 30
                      ) ) 
                  );
        
            //Hover Text Color 
-           $wp_customize->add_setting('blueprint_social_display[color_button_hover_text_color]', array(
+           $wp_customize->add_setting('blueprint_social_display[hover_color]', array(
              'default'           => '#ffffff',
              'type'              => 'option',
              'capability'        => 'manage_options',
@@ -205,11 +205,11 @@ class Blueprint_Social_Customizer {
                $wp_customize->add_control( 
                  new WP_Customize_Color_Control( 
                    $wp_customize, 
-                   'blueprint_social_display[color_button_hover_text_color]', 
+                   'blueprint_social_display[hover_color]', 
                    array(
                      'label'      => __( 'Icon hover color', 'blueprint-social' ),
                      'section'    => 'blueprint_social_display_settings_section',
-                     'settings'   => 'blueprint_social_display[color_button_hover_text_color]',
+                     'settings'   => 'blueprint_social_display[hover_color]',
                      'priority'   => 40
                      ) ) 
                  );
@@ -285,29 +285,28 @@ class Blueprint_Social_Customizer {
 
     public function do_social_links() {
       $links = get_option('blueprint_social_links');
+      $links = json_decode( $links, true );
+
       $list = '';
 
       if( $links ) {
-        
-        $links = explode(',', $links);
-                
-        foreach($links as $link) {
-          
-          $link = explode( '|', $link );
+                        
+        foreach( $links as $link ) {
+          $network = $link['network'];
+          $url = $link['url'];
                     
-            if( $link[0] ) {
-
-              $network = $link[0];
-              $url = esc_url( $link[1] );
+            if( $network || $url ) {
 
               if( $network === 'email' ) {
                 $url = sanitize_email( $link[1] );
+              } else {
+                $url = esc_url( $url );
               }
 
               $list .= sprintf(
                 '<li><a href="%1$s" class="%2$s icon-%2$s" target="_blank"><span>%2$s</span></a></li>',
                 $url,
-                esc_attr($network)
+                esc_attr( $network )
               );
 
             }
