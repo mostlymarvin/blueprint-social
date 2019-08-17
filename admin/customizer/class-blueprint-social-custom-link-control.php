@@ -159,6 +159,9 @@ function blueprint_define_custom_controls( $wp_customize ) {
                     'name' => 'Bookbub', 
                     'tag' => 'bookbub'),
                 array(
+                    'name' => 'The Dots',
+                    'tag' => 'dots',),
+                array(
                     'name' => 'Ello', 
                     'tag' => 'ello'),
                 array(
@@ -174,11 +177,14 @@ function blueprint_define_custom_controls( $wp_customize ) {
                     'name' => 'Flickr', 
                     'tag' => 'flickr'),
                 array(
+                    'name' => 'Github',
+                    'tag' => 'github',),
+                array(
                     'name' => 'Goodreads', 
                     'tag' => 'goodreads'),
                 array(
                     'name' => 'Google Plus', 
-                    'tag' => 'gplus'),
+                    'tag' => 'google-plus'),
                 array(
                     'name' => 'Instagram', 
                     'tag' => 'instagram'),
@@ -188,6 +194,9 @@ function blueprint_define_custom_controls( $wp_customize ) {
                 array(
                     'name' => 'I Heart Radio', 
                     'tag' => 'iheartradio'),
+                array(
+                    'name' => 'JSFiddle',
+                    'tag' => 'jsfiddle',),
                 array(
                     'name' => 'LinkedIn', 
                     'tag' => 'linkedin'),
@@ -201,6 +210,9 @@ function blueprint_define_custom_controls( $wp_customize ) {
                     'name' => 'MeetUp', 
                     'tag' => 'meetup'),
                 array(
+                    'name' => 'Mix',
+                    'tag' => 'mix'),
+                array(
                     'name' => 'Periscope', 
                     'tag' => 'periscope'),
                 array(
@@ -209,12 +221,18 @@ function blueprint_define_custom_controls( $wp_customize ) {
                 array(
                     'name' => 'Pinterest', 
                     'tag' => 'pinterest'),
-                    array(
+                array(
                     'name' => 'Pocket', 
                     'tag' => 'pocket'),
                 array(
+                    'name' => 'Ravelry',
+                    'tag' => 'ravelry'),
+                array(
                     'name' => 'RSS', 
                     'tag' => 'rss'),
+                array(
+                    'name' => 'Shop',
+                    'tag' => 'shop',),
                 array(
                     'name' => 'Snapchat', 
                     'tag' => 'snapchat'),
@@ -231,9 +249,6 @@ function blueprint_define_custom_controls( $wp_customize ) {
                     'name' => 'Stitcher', 
                     'tag' => 'stitcher'),
                 array(
-                    'name' => 'Tsu', 
-                    'tag' => 'tsu'),
-                array(
                     'name' => 'Tumblr', 
                     'tag' => 'tumblr'),
                 array(
@@ -246,14 +261,17 @@ function blueprint_define_custom_controls( $wp_customize ) {
                     'name' => 'Vine', 
                     'tag' => 'vine'),
                 array(
-                    'name' => 'YouTube', 
-                    'tag' => 'youtube'),
+                    'name' => 'Wattpad',
+                    'tag' => 'wattpad',),
                 array(
-                    'name' => 'Custom', 
-                    'tag' => 'custom')
+                    'name' => 'Wikipedia',
+                    'tag' => 'wikipedia'),
+                array(
+                    'name' => 'YouTube', 
+                    'tag' => 'youtube')
                 );
             
-                $networks = apply_filters( 'mmkbp_social_networks', $networks );
+                $networks = apply_filters( 'mmkbp_blueprint_social_networks', $networks );
                 $options = '';    
                 
                 foreach( $networks as $network ) {

@@ -136,6 +136,78 @@ class Blueprint_Social_Public {
 			
 		echo $style;
 		}
+
+	public static function get_display_links( $include = false, $exclude = false ) {
+
+		if( $include ) {
+			$include = str_replace(' ', '', $include);
+			$include = explode( ',', $include );
+		}
+
+		if( $exclude ) {
+			$exclude = str_replace(' ', '', $exclude);
+			$exclude = explode( ',', $exclude );
+		}
+
+
+		$links = get_option('blueprint_social_links');
+		$links = json_decode( $links, true );
+
+		$markup = '';
+		$list = '';
+
+		if( $links ) {
+			
+		foreach($links as $link) {
+
+		$network = $link['network'];
+		$url = $link['url'];
+		$add_link = true;
+			
+			if( !empty( $include ) ) {
+				$add_link = false;
+
+				if( in_array( $network, $include ) ) {
+					$add_link = true;
+				}
+			}
+
+			if( !empty( $exclude ) && ( in_array( $network, $exclude ) ) ) {
+				$add_link = false;
+			}
+			
+
+			if( $network === 'email' ) {
+				$url = sanitize_email( $url );
+			} else {
+				$url = esc_url( $url );
+			}
+
+			
+			$item = sprintf(
+				'<li><a href="%1$s" class="%2$s icon-%2$s" target="_blank"><span>%2$s</span></a></li>',
+				$url,
+				esc_attr( $network )
+			);
+
+			if( ( $network && $url ) && $add_link  ) {
+				$list .= $item;
+			}
+			
+		}
+
+
+		$markup = sprintf(
+		'<ul class="blueprint-social">%1$s</ul>',
+		$list
+		);
+
+		$markup = apply_filters( 'mmkbp_blueprint_social_ul_markup', $markup );
+
+		}
+
+		echo $markup;
+		}
 				
 }
 

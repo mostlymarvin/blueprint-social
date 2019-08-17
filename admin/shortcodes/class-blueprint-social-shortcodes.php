@@ -79,11 +79,13 @@ class Blueprint_Social_Shortcodes {
 			'flexwrap' => 'wrap',
 			'float' => 'none',
 			'size' => 'normal',
+			'include' => '',
+			'exclude' => '',
 			), $atts )
 		);
 
 		$bps_class = esc_attr( $class );
-		$bps_class .= esc_attr( ' align-' . $align );
+		$bps_class .= esc_attr( ' justify-' . $align );
 		$bps_class .= esc_attr( ' flex-' . $direction );
 		$bps_class .= esc_attr( ' wrap-' . $flexwrap );
 		$bps_class .= esc_attr( ' align' . $float );
@@ -93,12 +95,23 @@ class Blueprint_Social_Shortcodes {
 		$bps_id = esc_attr( $id );
 		$bps_wrap = strip_tags( $wrap );
 
-		$templates = new Blueprint_Social_Template_Loader;
-		
+
 		ob_start();
-		$templates->get_template_part( 'blueprint_social','links' );
-		
-		return '<' . $bps_wrap . ' class="blueprint-social-wrap ' . $bps_class . '" id="bps-' . $bps_id . '">' . ob_get_clean() . '</' . $bps_wrap . '>';
+		Blueprint_Social_Public::get_display_links( $include, $exclude );
+		$links = ob_get_contents();
+      	ob_end_clean();
+
+		$markup =  sprintf(
+			'%5$s<%1$s class="blueprint-social-wrap %2$s" id="bps-%3$s">%4$s</%1$s>',
+			strip_tags( $bps_wrap ),
+			esc_attr( $bps_class ),
+			esc_attr( $bps_id ),
+			wp_kses_post( $links ),
+			$style
+		);
+
+		$markup = apply_filters( 'mmkbp_blueprint_social_shortcode_markup', $markup );
+		return $markup;
 		
       }
 }

@@ -193,22 +193,6 @@
 		"oAP": "/includes/index.php",
 		"oF": 0
 		},
-	"/includes/template-loader/class-blueprint-social-template-loader.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/includes/template-loader/class-blueprint-social-template-loader.php",
-		"oF": 0
-		},
-	"/includes/template-loader/class-gamajo-template-loader.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/includes/template-loader/class-gamajo-template-loader.php",
-		"oF": 0
-		},
 	"/index.php": {
 		"cB": 0,
 		"ft": 8192,
@@ -264,130 +248,46 @@
 		"oS": 0,
 		"uL": 1
 		},
-	"/public/css/icons/_old/outline-pro.eot": {
+	"/public/css/font/blueprint-social.eot": {
 		"cB": 0,
 		"ft": 8192,
 		"hM": 0,
 		"oA": 0,
-		"oAP": "/public/css/icons/_old/outline-pro.eot",
+		"oAP": "/public/css/font/blueprint-social.eot",
 		"oF": 0
 		},
-	"/public/css/icons/_old/outline-pro.svg": {
+	"/public/css/font/blueprint-social.svg": {
 		"ft": 2097152,
 		"miP": 0,
 		"oA": 2,
-		"oAP": "/public/css/icons/_old/outline-pro.svg",
+		"oAP": "/public/css/font/blueprint-social.svg",
 		"oF": 0,
 		"opt": 0,
 		"plM": 52780316221407,
 		"prP": 0
 		},
-	"/public/css/icons/_old/outline-pro.ttf": {
+	"/public/css/font/blueprint-social.ttf": {
 		"cB": 0,
 		"ft": 8192,
 		"hM": 0,
 		"oA": 0,
-		"oAP": "/public/css/icons/_old/outline-pro.ttf",
+		"oAP": "/public/css/font/blueprint-social.ttf",
 		"oF": 0
 		},
-	"/public/css/icons/_old/outline-pro.woff": {
+	"/public/css/font/blueprint-social.woff": {
 		"cB": 0,
 		"ft": 8192,
 		"hM": 0,
 		"oA": 0,
-		"oAP": "/public/css/icons/_old/outline-pro.woff",
+		"oAP": "/public/css/font/blueprint-social.woff",
 		"oF": 0
 		},
-	"/public/css/icons/_old/outline-pro.woff2": {
+	"/public/css/font/blueprint-social.woff2": {
 		"cB": 0,
 		"ft": 8192,
 		"hM": 0,
 		"oA": 0,
-		"oAP": "/public/css/icons/_old/outline-pro.woff2",
-		"oF": 0
-		},
-	"/public/css/icons/_old/version_1.0.7/socialfriendsy-icons.eot": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/public/css/icons/_old/version_1.0.7/socialfriendsy-icons.eot",
-		"oF": 0
-		},
-	"/public/css/icons/_old/version_1.0.7/socialfriendsy-icons.svg": {
-		"ft": 2097152,
-		"miP": 0,
-		"oA": 2,
-		"oAP": "/public/css/icons/_old/version_1.0.7/socialfriendsy-icons.svg",
-		"oF": 0,
-		"opt": 0,
-		"plM": 52780316221407,
-		"prP": 0
-		},
-	"/public/css/icons/_old/version_1.0.7/socialfriendsy-icons.ttf": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/public/css/icons/_old/version_1.0.7/socialfriendsy-icons.ttf",
-		"oF": 0
-		},
-	"/public/css/icons/_old/version_1.0.7/socialfriendsy-icons.woff": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/public/css/icons/_old/version_1.0.7/socialfriendsy-icons.woff",
-		"oF": 0
-		},
-	"/public/css/icons/_old/version_1.0.7/socialfriendsy-icons.woff2": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/public/css/icons/_old/version_1.0.7/socialfriendsy-icons.woff2",
-		"oF": 0
-		},
-	"/public/css/icons/socialfriendsy-icons.eot": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/public/css/icons/socialfriendsy-icons.eot",
-		"oF": 0
-		},
-	"/public/css/icons/socialfriendsy-icons.svg": {
-		"ft": 2097152,
-		"miP": 0,
-		"oA": 2,
-		"oAP": "/public/css/icons/socialfriendsy-icons.svg",
-		"oF": 0,
-		"opt": 0,
-		"plM": 52780316221407,
-		"prP": 0
-		},
-	"/public/css/icons/socialfriendsy-icons.ttf": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/public/css/icons/socialfriendsy-icons.ttf",
-		"oF": 0
-		},
-	"/public/css/icons/socialfriendsy-icons.woff": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/public/css/icons/socialfriendsy-icons.woff",
-		"oF": 0
-		},
-	"/public/css/icons/socialfriendsy-icons.woff2": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/public/css/icons/socialfriendsy-icons.woff2",
+		"oAP": "/public/css/font/blueprint-social.woff2",
 		"oF": 0
 		},
 	"/public/index.php": {
@@ -417,6 +317,14 @@
 		"oAP": "/public/partials/blueprint-social-public-display.php",
 		"oF": 0
 		},
+	"/README.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/README.html",
+		"oF": 0
+		},
 	"/README.md": {
 		"cB": 0,
 		"cS": 0,
@@ -442,14 +350,6 @@
 		"hM": 0,
 		"oA": 0,
 		"oAP": "/README.txt",
-		"oF": 0
-		},
-	"/templates/blueprint_social-links.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/templates/blueprint_social-links.php",
 		"oF": 0
 		},
 	"/uninstall.php": {

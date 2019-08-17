@@ -57,7 +57,7 @@ class Blueprint_Social_Customizer {
         //social media
         $wp_customize->add_section( 'blueprint_social_settings_section', array(
           'title' => 'Social Media Accounts',
-          'description' => 'Enter the full URLs to your social media profiles. Profiles entered will be displayed using the Blueprint Social Follow Widget or by using the shortcode "[blueprint_social]"',
+          'description' => 'Enter the full URLs to your social media and other online profiles. Profiles entered will be displayed using the Blueprint Social Follow Widget or by using the shortcode "[blueprint_social]"',
           'priority' => 10,
            'panel' => 'blueprint_social_panel',
         ) );

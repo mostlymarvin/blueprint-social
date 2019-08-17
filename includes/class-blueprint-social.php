@@ -118,13 +118,6 @@ class Blueprint_Social {
 		require_once BLUEPRINT_SOCIAL_PLUGIN_DIR . 'admin/class-blueprint-social-admin.php';
 
 		/**
-		 * The classes responsible for allowing template overrides
-		 */
-		require_once BLUEPRINT_SOCIAL_PLUGIN_DIR . 'includes/template-loader/class-gamajo-template-loader.php';
-		
-  		require_once BLUEPRINT_SOCIAL_PLUGIN_DIR . 'includes/template-loader/class-blueprint-social-template-loader.php';
-
-		/**
 		 * The classes responsible for defining shortcodes
 		 */
 		require_once BLUEPRINT_SOCIAL_PLUGIN_DIR . 'admin/shortcodes/class-blueprint-social-shortcodes.php';
