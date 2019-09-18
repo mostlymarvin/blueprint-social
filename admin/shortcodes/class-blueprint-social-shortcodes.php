@@ -45,34 +45,35 @@ class Blueprint_Social_Shortcodes {
 
         $this->plugin_name = $plugin_name;
         $this->version = $version;
-        
+
         add_shortcode('blueprint_social', array($this, 'define_display_shortcode'));
         add_shortcode('socialfriendsy_links', array($this, 'define_display_shortcode'));
     }
-     
+
     function define_display_shortcode( $atts , $content = null ) {
 		/**
 		 * SHORTCODE
 		 *
 		 * 1) Template Use:
 		 * if ( shortcode_exists( 'blueprint_social' ) ) {
-		 *    // The [blueprint_social] short code exists. 
+		 *    // The [blueprint_social] short code exists.
 		 *    echo do_shortcode( '[blueprint_social]' ); }
 		 *
 		 * 2) Shortcode Attributes:
-		 *  - align (justify content - center, start, end etc)
+		 *  - align (justify content - center, start, end )
 		 *  - wrap (outer container for social navigation, defaults to div)
 		 *  - class (outer container class, defaults to 'blueprint-social-wrap')
-		 *  - id (outer container id, defaults to 'sf-' - useful to add
+		 *  - id (outer container id, defaults to '-' - useful to add
 		 *  - direction (flex-direction)
-		 * specific tag if using)
+		 *  - size: small(30px), default(40px) large(60px), mini(20px)
+		 *
 		 */
 
 		// Attributes
 		extract( shortcode_atts(
 			array(
 			'align' => 'none',
-			'wrap' => 'nav', 
+			'wrap' => 'nav',
 			'class' => '',
 			'id'  => 'main',
 			'direction' => 'row',
@@ -91,7 +92,7 @@ class Blueprint_Social_Shortcodes {
 		$bps_class .= esc_attr( ' align' . $float );
 		$bps_class .= esc_attr( ' size-' . $size );
 
-		
+
 		$bps_id = esc_attr( $id );
 		$bps_wrap = strip_tags( $wrap );
 
@@ -102,18 +103,15 @@ class Blueprint_Social_Shortcodes {
       	ob_end_clean();
 
 		$markup =  sprintf(
-			'%5$s<%1$s class="blueprint-social-wrap %2$s" id="bps-%3$s">%4$s</%1$s>',
+			'<%1$s class="blueprint-social-wrap %2$s" id="bps-%3$s">%4$s</%1$s>',
 			strip_tags( $bps_wrap ),
 			esc_attr( $bps_class ),
 			esc_attr( $bps_id ),
-			wp_kses_post( $links ),
-			$style
+			wp_kses_post( $links )
 		);
 
 		$markup = apply_filters( 'mmkbp_blueprint_social_shortcode_markup', $markup );
 		return $markup;
-		
+
       }
 }
- 
-

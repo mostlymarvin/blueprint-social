@@ -13,30 +13,30 @@
 add_action( 'customize_register', 'blueprint_define_custom_controls' );
 
 function blueprint_define_custom_controls( $wp_customize ) {
-    
+
         class Blueprint_Social_Custom_Link_Control extends WP_Customize_Control {
             /**
             * The type of control being rendered
             */
             //public $type = 'sortable_repeater';
             public $type = 'social_link_control';
-            
+
             /**
             * Constructor
             */
             public function __construct( $manager, $id, $args = array(), $options = array() ) {
-            parent::__construct( $manager, $id, $args );        
+            parent::__construct( $manager, $id, $args );
             }
 
             public function enqueue() {
                 wp_enqueue_script( 'jquery-ui-sortable' );
-            
+
                 wp_enqueue_script( 'blueprint-social-customizer', plugin_dir_url( __FILE__ ) . 'assets/blueprint-social-customizer.js', array( 'jquery', 'jquery-ui-sortable', 'customize-controls' ), BLUEPRINT_SOCIAL_VERSION,  true );
-                
+
                 wp_enqueue_style( 'blueprint-social-customizer', plugin_dir_url( __FILE__ ) . 'assets/blueprint-social-customizer.css', array(), BLUEPRINT_SOCIAL_VERSION, 'all' );
 
             }
-            
+
             /**
             * Render the control in the customizer
             */
@@ -45,7 +45,7 @@ function blueprint_define_custom_controls( $wp_customize ) {
                 $saved_value = $this->get_saved_value();
                 $link_input = $this->get_link_input();
                 $empty_input = $this->get_link_input( $type = 'empty' );
-                
+
                     ?>
                         <div class="drag_and_drop_control">
                             <?php if( !empty( $this->label ) ) { ?>
@@ -62,19 +62,19 @@ function blueprint_define_custom_controls( $wp_customize ) {
                             } else { ?>
 
                                 echo $link_input;
-                            <?php } 
+                            <?php }
 
                             echo $empty_input;
 
                             ?>
 
                     </ul>
-                    <a id="add_link" class="button">Add Link</a> 
-                    <a id="sort_links" class="button">Sort Links</a> 
-                    <a id="save_sort" class="button">Save Sort Order</a> 
-                    
+                    <a id="add_link" class="button">Add Link</a>
+                    <a id="sort_links" class="button">Sort Links</a>
+                    <a id="save_sort" class="button">Save Sort Order</a>
+
                             </div>
-                
+
                         </div>
                     <?php
             }
@@ -108,22 +108,22 @@ function blueprint_define_custom_controls( $wp_customize ) {
                 $markup = false;
 
                 if( $links ) {
-                
+
                 foreach($links as $link) {
-                   
+
                     $network = $link['network'];
                     $url = $link['url'];
 
                     if( $url && $network ) {
                         $placeholder = 'http://website.com';
-                        
+
                         if( $network === 'email' ) {
                             $url = sanitize_email( $url);
                             $placeholder = 'email@yourwebsite.com';
                         } else {
                             $url = esc_url( $url );
                         }
-                    
+
                     $markup .= sprintf(
                         '<li class="ui-state-default repeater">
                         <span class="dashicons dashicons-move sort_handle"></span>
@@ -143,148 +143,22 @@ function blueprint_define_custom_controls( $wp_customize ) {
             }
 
 
-            function get_social_options( $id, $value = '' ) { 
+            function get_social_options( $id, $value = '' ) {
 
-                $networks = array (
-                array(
-                    'name' => 'Amazon', 
-                    'tag' => 'amazon'),
-                array(
-                    'name' => 'Behance', 
-                    'tag' => 'behance'),
-                array(
-                    'name' => 'Book + Main Bites', 
-                    'tag' => 'bites'),
-                array(
-                    'name' => 'Bookbub', 
-                    'tag' => 'bookbub'),
-                array(
-                    'name' => 'The Dots',
-                    'tag' => 'dots',),
-                array(
-                    'name' => 'Ello', 
-                    'tag' => 'ello'),
-                array(
-                    'name' => 'Email Address', 
-                    'tag' => 'email'),
-                array(
-                    'name' => 'Evernote', 
-                    'tag' => 'evernote'),
-                array(
-                    'name' => 'Facebook', 
-                    'tag' => 'facebook'),
-                array(
-                    'name' => 'Flickr', 
-                    'tag' => 'flickr'),
-                array(
-                    'name' => 'Github',
-                    'tag' => 'github',),
-                array(
-                    'name' => 'Goodreads', 
-                    'tag' => 'goodreads'),
-                array(
-                    'name' => 'Google Plus', 
-                    'tag' => 'google-plus'),
-                array(
-                    'name' => 'Instagram', 
-                    'tag' => 'instagram'),
-                array(
-                    'name' => 'iTunes Podcast', 
-                    'tag' => 'itunes-podcast'),
-                array(
-                    'name' => 'I Heart Radio', 
-                    'tag' => 'iheartradio'),
-                array(
-                    'name' => 'JSFiddle',
-                    'tag' => 'jsfiddle',),
-                array(
-                    'name' => 'LinkedIn', 
-                    'tag' => 'linkedin'),
-                array(
-                    'name' => 'Newsletter', 
-                    'tag' => 'newsletter'),
-                array(
-                    'name' => 'Medium', 
-                    'tag' => 'medium'),
-                array(
-                    'name' => 'MeetUp', 
-                    'tag' => 'meetup'),
-                array(
-                    'name' => 'Mix',
-                    'tag' => 'mix'),
-                array(
-                    'name' => 'Periscope', 
-                    'tag' => 'periscope'),
-                array(
-                    'name' => 'Picasa', 
-                    'tag' => 'picasa'),
-                array(
-                    'name' => 'Pinterest', 
-                    'tag' => 'pinterest'),
-                array(
-                    'name' => 'Pocket', 
-                    'tag' => 'pocket'),
-                array(
-                    'name' => 'Ravelry',
-                    'tag' => 'ravelry'),
-                array(
-                    'name' => 'RSS', 
-                    'tag' => 'rss'),
-                array(
-                    'name' => 'Shop',
-                    'tag' => 'shop',),
-                array(
-                    'name' => 'Snapchat', 
-                    'tag' => 'snapchat'),
-                array(
-                    'name' => 'Slack', 
-                    'tag' => 'slack'),
-                array(
-                    'name' => 'Soundcloud', 
-                    'tag' => 'soundcloud'),
-                array(
-                    'name' => 'Spotify', 
-                    'tag' => 'spotify'),
-                array(
-                    'name' => 'Stitcher', 
-                    'tag' => 'stitcher'),
-                array(
-                    'name' => 'Tumblr', 
-                    'tag' => 'tumblr'),
-                array(
-                    'name' => 'Twitter', 
-                    'tag' => 'twitter'),
-                array(
-                    'name' => 'Vimeo', 
-                    'tag' => 'vimeo'),
-                array(
-                    'name' => 'Vine', 
-                    'tag' => 'vine'),
-                array(
-                    'name' => 'Wattpad',
-                    'tag' => 'wattpad',),
-                array(
-                    'name' => 'Wikipedia',
-                    'tag' => 'wikipedia'),
-                array(
-                    'name' => 'YouTube', 
-                    'tag' => 'youtube')
-                );
-            
-                $networks = apply_filters( 'mmkbp_blueprint_social_networks', $networks );
-                $options = '';    
-                
+                $networks = Blueprint_Social_Networks::get_networks();
+                $options = '';
+
                 foreach( $networks as $network ) {
-                    
+
                     $selected = '';
                     $icon_class = '';
-                    
+
 
                     if( $value === $network['tag'] ) {
                     $selected = "selected='selected'";
                     }
-                    
-                    
+
+
                     if( !empty( $value ) ) {
                         $icon_class = esc_attr('admin-icon icon-' . $value);
                     }
@@ -295,7 +169,7 @@ function blueprint_define_custom_controls( $wp_customize ) {
                         $network['name'],
                         $selected
                     );
-            
+
                 }
 
                 $markup = sprintf(
@@ -304,9 +178,9 @@ function blueprint_define_custom_controls( $wp_customize ) {
                     $id,
                     $value
                 );
-            
+
                 return $markup;
-            
+
             }
         }
     }

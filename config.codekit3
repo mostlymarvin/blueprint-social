@@ -25,6 +25,14 @@
 		"oAP": "/admin/class-blueprint-social-admin.php",
 		"oF": 0
 		},
+	"/admin/class-blueprint-social-networks.php": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/admin/class-blueprint-social-networks.php",
+		"oF": 0
+		},
 	"/admin/customizer/assets/blueprint-social-customizer-min.css": {
 		"aP": 1,
 		"bl": 0,

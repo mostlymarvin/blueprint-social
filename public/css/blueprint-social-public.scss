@@ -9,9 +9,9 @@
   font-weight: normal;
   font-style: normal;
 }
-  
+
   $baseline: 20px;
-  
+
   //Display the Icons & Hide Text
   ul.blueprint-social {
     list-style:none;
@@ -29,9 +29,9 @@
     nav.flex-row-reverse &{
       flex-direction: row-reverse;
     }
-    
 
-    
+
+
     nav.justify-center.flex-row &,
     nav.justify-center.flex-row-reverse & {
       justify-content:center;
@@ -48,8 +48,8 @@
     }
   }
 
-  
-  
+
+
   ul.blueprint-social li {
     display:inline-block;
     width:max-content;
@@ -67,30 +67,30 @@
     text-decoration:none;
     border-bottom:none;
 
-
-    nav.size-small & {
+    .size-mini & {
+      height:$baseline*1;
+      line-height:$baseline*.95;
+      width:$baseline*1;
+    }
+    .size-small & {
       height:$baseline*1.5;
-      line-height:$baseline*1.5;
+      line-height:$baseline*1.45;
       width:$baseline*1.5;
     }
-    nav.size-large & {
+    .size-large & {
       height:$baseline*3;
       line-height:$baseline*3;
       width:$baseline*3;
     }
-    nav.size-mini & {
-      height:$baseline*1;
-      line-height:$baseline*1;
-      width:$baseline*1;
-    }
+
   }
 
 
-  
+
   ul.blueprint-social li a span {
     display:none;
     }
-  
+
   [class^="icon-"]:before, [class*=" icon-"]:before {
     color:inherit;
     display:inline-block;
@@ -128,8 +128,8 @@
       width:$baseline;
     }
   }
-  
-  
+
+
 .icon-address-book:before { content: '\e800'; } /* '' */
 .icon-amazon:before { content: '\e801'; } /* '' */
 .icon-anchor:before { content: '\e802'; } /* '' */

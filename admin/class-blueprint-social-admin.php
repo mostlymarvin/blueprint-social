@@ -73,7 +73,7 @@ class Blueprint_Social_Admin {
 		 * class.
 		 */
 
-		//wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/blueprint-social-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, BLUEPRINT_SOCIAL_PLUGIN_DIR . 'public/css/blueprint-social-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -97,11 +97,29 @@ class Blueprint_Social_Admin {
 		 */
 
 		//wp_enqueue_script( 'jquery-ui-sortable' );
-		
+
 		//wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/blueprint-social-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
 
-	
+	public function add_rest_fields( $rest_fields ) {
+		$social_links = get_option( 'blueprint_social', array() );
+  	$social_links = json_decode( $social_links, true );
+
+		$social_display = get_option( 'blueprint_social_display', array() );
+
+    $networks = Blueprint_Social_Networks::get_networks();
+
+		$rest_fields['blueprint_social'] = array(
+			'status' => 'active',
+			'links' => $social_links,
+			'display' => $social_display,
+      'networks' => $networks,
+		 );
+     
+		return $rest_fields;
+	}
+
+
 
 }

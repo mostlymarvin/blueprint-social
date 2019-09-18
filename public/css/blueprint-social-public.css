@@ -46,18 +46,18 @@ ul.blueprint-social li a {
   width: 40px;
   text-decoration: none;
   border-bottom: none; }
-  nav.size-small ul.blueprint-social li a {
+  .size-mini ul.blueprint-social li a {
+    height: 20px;
+    line-height: 19px;
+    width: 20px; }
+  .size-small ul.blueprint-social li a {
     height: 30px;
-    line-height: 30px;
+    line-height: 29px;
     width: 30px; }
-  nav.size-large ul.blueprint-social li a {
+  .size-large ul.blueprint-social li a {
     height: 60px;
     line-height: 60px;
     width: 60px; }
-  nav.size-mini ul.blueprint-social li a {
-    height: 20px;
-    line-height: 20px;
-    width: 20px; }
 
 ul.blueprint-social li a span {
   display: none; }

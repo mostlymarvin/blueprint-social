@@ -121,8 +121,12 @@ class Blueprint_Social {
 		 * The classes responsible for defining shortcodes
 		 */
 		require_once BLUEPRINT_SOCIAL_PLUGIN_DIR . 'admin/shortcodes/class-blueprint-social-shortcodes.php';
-		
-  		
+
+
+    /**
+    * The Class responsible for defining available networks
+    */
+    require_once BLUEPRINT_SOCIAL_PLUGIN_DIR . 'admin/class-blueprint-social-networks.php';
 
 
 		/**
@@ -173,8 +177,10 @@ class Blueprint_Social {
 
 		$shortcodes = new Blueprint_Social_Shortcodes( $this->get_plugin_name(), $this->get_version() );
 
-		//$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		
+		$this->loader->add_filter( 'blueprint_rest_fields', $plugin_admin, 'add_rest_fields' );
+
+    //$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+
 		//$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
 		//$this->loader->add_action( 'customize_preview_init', $plugin_admin, 'enqueue_scripts' );
@@ -192,12 +198,12 @@ class Blueprint_Social {
 
 	private function define_customizer_hooks() {
 
-		$customize = new Blueprint_Social_Customizer( $this->get_plugin_name(), $this->get_version );
+		$customize = new Blueprint_Social_Customizer( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'customize_preview_init', $customize, 'live_preview' );
 
 		$this->loader->add_action( 'customize_register', $customize, 'register_customizer' );
-       
+
 		$this->loader->add_action( 'customize_register', $customize, 'register_display_customizer'  );
 	}
 

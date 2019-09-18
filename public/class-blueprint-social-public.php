@@ -109,7 +109,7 @@ class Blueprint_Social_Public {
 			}
 
 			$style = sprintf( 
-				'<style type="text/css">
+				'<style type="text/css" id="blueprint-social-custom">
 					ul.blueprint-social li a {
 						background-color: %1$s;
 						color:%2$s;

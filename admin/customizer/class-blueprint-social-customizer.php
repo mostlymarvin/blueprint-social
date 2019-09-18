@@ -20,7 +20,7 @@ class Blueprint_Social_Customizer {
 	 * @access   private
 	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
-	private $plugin_name;
+	protected $plugin_name;
 
 	/**
 	 * The version of this plugin.
@@ -29,7 +29,7 @@ class Blueprint_Social_Customizer {
 	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
-	private $version;
+	protected $version;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -129,7 +129,7 @@ class Blueprint_Social_Customizer {
                  'type'     => 'textarea',
                  'priority'   => 100
                ) );
-       
+                 
            //Background Color 
            $wp_customize->add_setting('blueprint_social_display[background]', array(
              'default'           => '#484848',
