@@ -1,7 +1,7 @@
 (function($) {
-	
+
 	jQuery(document).ready(function($){
-	
+
 	$('#add_link').on('click', function() {
 		var row = $('.empty-link').clone(true);
 		row.removeClass('empty-link');
@@ -17,7 +17,7 @@
 				cursor: 'move',
 				handle: '.sort_handle',
 				placeholder: 'ui-state-highlight',
-				start: function( event, ui ) { 
+				start: function( event, ui ) {
 				$(ui.item).css({
 				   'opacity': '1',
 				   'width' : '80%',
@@ -26,9 +26,9 @@
 				   });
 				$(ui.item).addClass('onthemove');
 				},
-				stop:function( event, ui ) { 
+				stop:function( event, ui ) {
 				   $(ui.item).removeClass('onthemove').addClass('changed');
-				  
+
 				},
 				update: function(event, ui) {
 					bpsGetAllInputs($(this).parent());
@@ -47,6 +47,7 @@
 
 	$('.remove_link').on('click', function() {
 		$(this).parent('li').remove();
+		bpsGetAllInputs($('#blueprint-social-list').parent());
 		return false;
 	});
 
@@ -55,13 +56,13 @@
 		$(this).next('.network-choice').val(selectval);
 
 		bpsGetAllInputs($('#blueprint-social-list').parent());
-
 	});
+
 
 	$('.network-url').change(function() {
 		bpsGetAllInputs($('#blueprint-social-list').parent());
 	});
-	
+
 	$('.network-url').on('input', function(){
 		bpsGetAllInputs($('#blueprint-social-list').parent());
 	});
@@ -73,7 +74,7 @@
 		$( ".network-url" ).each(function( index ) {
 			var netchoice = $(this).prev('.network-choice').val();
 			var neturl = $(this).val();
-			
+
 			networks.push({
 				'network' :netchoice,
 				'url' :neturl,
@@ -81,16 +82,16 @@
 		  });
 
 		 var networkObj =  JSON.stringify( networks );
-		 
-		
+
+
 		$element.find('.customize-control-sortable-repeater').val(networkObj);
-		
+
 		$element.find('.customize-control-sortable-repeater').trigger('change');
-		
+
 		}
-		
+
 
 	});
-	
+
 
 })(jQuery);
