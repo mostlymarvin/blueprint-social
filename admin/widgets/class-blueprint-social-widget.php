@@ -56,10 +56,10 @@ class Blueprint_Social_Widget extends WP_Widget {
 
 		parent::__construct(
 			'blueprint_social_widget',
-			__( 'Social Media Icons', 'blueprint-social' ),
+			__( 'Blueprint Social Icons', 'blueprint-social' ),
 			array(
 				'classname'   => 'blueprint_social_widget',
-				'description' => __( 'Displays social media links as icons. Set global icon preferences in the Social Media Settings using the Customizer, or set widget-specific preferences here.', 'blueprint-social' ),
+				'description' => __( 'Displays social media links as icons.', 'blueprint-social' ),
 			)
 		);
 
@@ -67,8 +67,8 @@ class Blueprint_Social_Widget extends WP_Widget {
 			'align'         => 'none',
 			'wrap'          => 'div',
 			'class'         => '',
-			'id'            => 'main',
-			'size'          => 'normal',
+			'id'            => '',
+			'size'          => 'default',
 			'flexwrap'      => 'wrap',
 			'direction'     => 'row',
 			'float'         => 'none',
@@ -83,10 +83,10 @@ class Blueprint_Social_Widget extends WP_Widget {
 			'hover_background' => '#727272',
 			'hover_color'      => '#ffffff',
 			'border_radius'    => '0',
-			'grayscale'        => false,
+			'grayscale'        => 'no',
 		);
 
-		$alignments   = array( 'none', 'right', 'left', 'center' );
+		$alignments   = array( 'none', 'start', 'end', 'center' );
 		$links        = get_option( 'blueprint_social_links' );
 		$links        = json_decode( $links, true );
 		$css_settings = get_option( 'blueprint_social_display' );
@@ -96,9 +96,6 @@ class Blueprint_Social_Widget extends WP_Widget {
 		$this->social_links = $links;
 		$this->default_css  = wp_parse_args( $css_settings, $default_css );
 		$this->global_css   = $css_settings;
-
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-		add_action( 'admin_footer-widgets.php', array( $this, 'print_scripts' ), 9999 );
 	}
 
 	/**
@@ -106,9 +103,10 @@ class Blueprint_Social_Widget extends WP_Widget {
 	 *
 	 * @since 1.0
 	 *
-	 * @param string $hook_suffix
+	 * @param string $hook_suffix make sure we are only enqueuing if editing widgets.
 	 */
 	public function enqueue_scripts( $hook_suffix ) {
+
 		if ( 'widgets.php' !== $hook_suffix ) {
 			return;
 		}
@@ -119,7 +117,7 @@ class Blueprint_Social_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Print scripts.
+	 * Print scripts (initialize color pickers).
 	 *
 	 * @since 1.0
 	 */
@@ -180,18 +178,19 @@ class Blueprint_Social_Widget extends WP_Widget {
 			echo $args['before_title'] . wp_kses_post( $title ) . $args['after_title'];
 		}
 
-		$links  = Blueprint_Social_Public::get_display_links( false, $exclude, false );
-		$class  = Blueprint_Social_Shortcodes::define_shortcode_wrap_class( $instance );
-		$class .= ' bps-' . $instance_id;
+		$links     = Blueprint_Social_Public::get_display_links( false, $exclude, false );
+		$class     = Blueprint_Social_Shortcodes::define_shortcode_wrap_class( $instance );
+		$class    .= ' bps-' . $instance_id;
+		$widget_id = ! empty( $instance['id'] ) ? 'id="bps-' . esc_attr( $instance['id'] ) . '"' : '';
+		$grayscale = ! empty( $instance['grayscale'] ) ? 'yes' : 'no';
 
-		$grayscale = ! empty( $instance['grayscale'] ) ? 1 : 0;
-
-		if ( 1 === $grayscale ) {
+		if ( 'yes' === $grayscale ) {
 			$filter       = '-webkit-filter: grayscale(100%);filter: grayscale(100%);';
 			$hover_filter = '-webkit-filter: grayscale(0%); filter: grayscale(0%);';
 		}
 
-		$style = sprintf(
+		/* Instance-specific styles to override globals and defaults */
+		$style = printf(
 			'<style type="text/css" id="bps-%6$s">
 				.bps-%6$s ul.blueprint-social li a {
 					background-color: %1$s;
@@ -206,23 +205,23 @@ class Blueprint_Social_Widget extends WP_Widget {
 					%9$s
 				}
 			</style>',
-			sanitize_hex_color( $instance['background'] ),
-			sanitize_hex_color( $instance['color'] ),
+			esc_html( $instance['background'] ),
+			esc_html( $instance['color'] ),
 			intval( $instance['border_radius'] ),
-			sanitize_hex_color( $instance['hover_background'] ),
-			sanitize_hex_color( $instance['hover_color'] ),
+			esc_html( $instance['hover_background'] ),
+			esc_html( $instance['hover_color'] ),
 			esc_attr( $instance_id ),
-			wp_strip_all_tags( $instance['radius_unit'] ),
-			wp_kses_post( $grayscale ),
-			wp_kses_post( $grayscale_filter )
+			esc_html( $instance['radius_unit'] ),
+			esc_html( $filter ),
+			esc_html( $hover_filter )
 		);
 
+		/* Formatted icon list markup */
 		$markup = printf(
-			'%4$s<div class="blueprint-social-wrap %1$s" id="bps-%2$s"> %3$s </div>',
+			'<div class="blueprint-social-wrap %1$s" %2$s> %3$s </div>',
 			esc_attr( $class ),
-			esc_attr( $args['id'] ),
+			esc_html( $widget_id ),
 			wp_kses_post( $links ),
-			$style
 		);
 
 		/* phpcs:ignore */
@@ -238,63 +237,64 @@ class Blueprint_Social_Widget extends WP_Widget {
 	 * @return object $instance
 	 */
 	public function update( $new_instance, $old_instance ) {
+
 		$instance = $old_instance;
 
-		/*
-		 * Strip tags (if needed) and update the widget settings.
-		 */
-		$instance['title']         = wp_strip_all_tags( $new_instance['title'] );
+		/* Icon Settings */
 		$instance['align']         = in_array( $new_instance['align'], $this->alignments, true ) ? $new_instance['align'] : 'none';
+		$instance['checked_links'] = array_map( 'wp_strip_all_tags', $new_instance['checked_links'] );
 		$instance['class']         = esc_attr( $new_instance['class'] );
 		$instance['id']            = esc_attr( $new_instance['id'] );
 		$instance['size']          = esc_attr( $new_instance['size'] );
-		$instance['checked_links'] = array_map( 'wp_strip_all_tags', $new_instance['checked_links'] );
+		$instance['title']         = wp_strip_all_tags( $new_instance['title'] );
 
+		/* CSS */
 		$instance['background']       = sanitize_hex_color( $new_instance['background'] );
+		$instance['border_radius']    = intval( $new_instance['border_radius'] );
 		$instance['color']            = sanitize_hex_color( $new_instance['color'] );
+		$instance['grayscale']        = ! empty( $new_instance['grayscale'] ) ? 'yes' : 'no';
 		$instance['hover_background'] = sanitize_hex_color( $new_instance['hover_background'] );
 		$instance['hover_color']      = sanitize_hex_color( $new_instance['hover_color'] );
-		$instance['border_radius']    = intval( $new_instance['border_radius'] );
-		$instance['radius_unit']      = ! empty( $new_instance['radius_unit'] ) ? $new_instance['radius_unit'] : px;
-		$instance['grayscale']        = ! empty( $new_instance['grayscale'] ) ? 1 : 0;
+		$instance['radius_unit']      = 'px' === $new_instance['radius_unit'] ? 'px' : '%';
 
 		return $instance;
 	}
 
-				/**
-				 * Format Widget Form
-				 *
-				 * @method form
-				 * @param  object $instance widget instance.
-				 */
+	/**
+	 * Format Widget Form
+	 *
+	 * @method form
+	 * @param  object $instance widget instance.
+	 */
 	public function form( $instance ) {
 
 		/* Set up default widget settings. */
 		$defaults          = $this->defaults;
 		$defaults['title'] = '';
 
+		/* merge $instance attributes with defaults */
 		$instance = wp_parse_args( $instance, $defaults );
 
-		/* define fields and sanitize values before saving to database */
-		$title = wp_strip_all_tags( $instance['title'] );
+		/* $instance values */
 		$align = in_array( $instance['align'], $this->alignments, true ) ? $instance['align'] : 'none';
-		$class = esc_attr( $instance['class'] );
 
-		$id            = esc_attr( $instance['id'] );
-		$size          = esc_attr( $instance['size'] );
-		$checked_links = array_map( 'wp_strip_all_tags', $instance['checked_links'] );
+		$checked_links = array();
+		if ( ! empty( $instance['checked_links'] ) && is_array( $instance['checked_links'] ) ) {
+			$checked_links = array_map( 'wp_strip_all_tags', $instance['checked_links'] );
+		}
 
+		$class        = $instance['class'];
+		$id           = $instance['id'];
 		$instructions = __( 'Fill in your Social Media URLs in Social Media Settings via the Customizer and place this widget into your sidebar to display social media icons. Social Media links that are left blank will not be displayed.', 'blueprint-social' );
-
-		$social_links = $this->social_links;
 		$link_toggles = '';
+		$social_links = $this->social_links;
 
 		$background       = isset( $instance['background'] ) ? $instance['background'] : $this->default_css['background'];
-		$hover_background = isset( $instance['hover_background'] ) ? $instance['hover_background'] : $this->default_css['hover_background'];
 		$color            = isset( $instance['color'] ) ? $instance['color'] : $this->default_css['color'];
+		$hover_background = isset( $instance['hover_background'] ) ? $instance['hover_background'] : $this->default_css['hover_background'];
 		$hover_color      = isset( $instance['hover_color'] ) ? $instance['hover_color'] : $this->default_css['hover_color'];
-		$grayscale        = ! empty( $instance['grayscale'] ) ? 1 : 0;
 
+		/* Social links, formatted for toggle section, below */
 		if ( ! empty( $social_links && is_array( $social_links ) ) ) :
 
 			foreach ( $social_links as $link ) {
@@ -318,11 +318,13 @@ class Blueprint_Social_Widget extends WP_Widget {
 
 		$fields = array();
 
+		/* Widget instructions */
 		$fields[] = sprintf(
 			'<p>%1$s</p>',
 			$instructions
 		);
 
+		/* Title */
 		$fields[] = sprintf(
 			'<p>
 				<label for="%1$s">%2$s</label><br />
@@ -331,17 +333,18 @@ class Blueprint_Social_Widget extends WP_Widget {
 			$this->get_field_id( 'title' ),
 			__( 'Title:', 'blueprint-social' ),
 			$this->get_field_name( 'title' ),
-			$title
+			wp_strip_all_tags( $instance['title'] )
 		);
 
+		/* Flex alignment of icon ul */
 		$fields[] = sprintf(
 			'<p>
 				<label for="%1$s">%2$s</label><br />
 				<select class="widefat" type="text" id="%1$s" name="%3$s">
-					<option %5$s>center</option>
-					<option %6$s>left</option>
-					<option %7$s>right</option>
-					<option %4$s>none</option>
+					<option %5$s value="center">center</option>
+					<option %6$s value="start">left</option>
+					<option %7$s value="end">right</option>
+					<option %4$s value="none">none</option>
 				</select>
 			</p>',
 			$this->get_field_id( 'align' ),
@@ -349,10 +352,11 @@ class Blueprint_Social_Widget extends WP_Widget {
 			$this->get_field_name( 'align' ),
 			'none' === $instance['align'] ? 'selected' : '',
 			'center' === $instance['align'] ? 'selected' : '',
-			'left' === $instance['align'] ? 'selected' : '',
-			'right' === $instance['align'] ? 'selected' : ''
+			'start' === $instance['align'] ? 'selected' : '',
+			'end' === $instance['align'] ? 'selected' : ''
 		);
 
+		/* Widget CSS class */
 		$fields[] = sprintf(
 			'<p>
 				<label for="%1$s">%2$s</label><br />
@@ -361,9 +365,10 @@ class Blueprint_Social_Widget extends WP_Widget {
 			$this->get_field_id( 'class' ),
 			__( 'CSS Class (space separated list of classes):', 'blueprint-social' ),
 			$this->get_field_name( 'class' ),
-			$class
+			esc_attr( $instance['class'] )
 		);
 
+		/* Widget CSS id */
 		$fields[] = sprintf(
 			'<p>
 				<label for="%1$s">%2$s</label><br />
@@ -372,9 +377,10 @@ class Blueprint_Social_Widget extends WP_Widget {
 			$this->get_field_id( 'id' ),
 			__( 'CSS ID:', 'blueprint-social' ),
 			$this->get_field_name( 'id' ),
-			$id,
+			esc_attr( $instance['id'] ),
 		);
 
+		/* Icon size */
 		$fields[] = sprintf(
 			'<p>
 				<label for="%1$s">%2$s</label><br />
@@ -394,6 +400,11 @@ class Blueprint_Social_Widget extends WP_Widget {
 			'large' === $instance['size'] ? 'selected' : ''
 		);
 
+		/**
+		 * Checkboxes to hide specific links.
+		 * If there are no links created, a prompt will
+		 * display instead, with a link to the customizer.
+		 */
 		if ( ! empty( $social_links ) ) {
 			$fields[] = sprintf(
 				'<p>%1$s <br /> %2$s</p>',
@@ -410,7 +421,7 @@ class Blueprint_Social_Widget extends WP_Widget {
 		}
 
 		/**
-		 * Background Color Picker Field
+		 * Background - color picker field
 		 *
 		 * @var mixed background color field
 		 */
@@ -428,7 +439,7 @@ class Blueprint_Social_Widget extends WP_Widget {
 		);
 
 		/**
-		 * Background Hover Color Picker Field
+		 * Background hover - color picker field
 		 *
 		 * @var mixed background hover color field
 		 */
@@ -445,7 +456,7 @@ class Blueprint_Social_Widget extends WP_Widget {
 		);
 
 		/**
-		 * Icon Color - Color Picker Field
+		 * Icon Color - color picker field
 		 *
 		 * @var mixed icon color - color field
 		 */
@@ -462,7 +473,7 @@ class Blueprint_Social_Widget extends WP_Widget {
 		);
 
 		/**
-		 * Hover Icon Color - Color Picker Field
+		 * Hover icon color - color picker field
 		 *
 		 * @var mixed hover icon color - color field
 		 */
@@ -478,6 +489,7 @@ class Blueprint_Social_Widget extends WP_Widget {
 			sanitize_hex_color( $this->default_css['hover_color'] )
 		);
 
+		/* Border radius number picker and choice of % or px for border_radius units */
 		$fields[] = sprintf(
 			'<p>
 			<label for="%1$s">%3$s:</label> <br />
@@ -497,32 +509,33 @@ class Blueprint_Social_Widget extends WP_Widget {
 			'%' === $instance['radius_unit'] ? 'selected' : '',
 		);
 
+		/* Checkbox to enable grayscale filter */
 		$fields[] = sprintf(
 			'<p><label>
-				<input type="checkbox" value="%2$s" id="%5$s" name="%1$s" %3$s/>
-				%4$s
+				<input type="checkbox" value="yes" id="%4$s" name="%1$s" checked( "yes", %2$s ) />
+				%3$s
 				</label></p>
 				',
 			$this->get_field_name( 'grayscale' ),
-			! empty( $instance['grayscale'] ) ? 1 : 0,
-			! empty( $instance['grayscale'] ) ? 'checked' : '',
+			$instance['grayscale'],
 			__( 'Make Grayscale until hover?', 'blueprint-social' ),
 			$this->get_field_id( 'grayscale' ),
 		);
 
+		/* Output the fields */
 		foreach ( $fields as $field ) {
 			/* phpcs:ignore */
 			echo $field;
 		}
 	}
 
-		/**
-		 * Create instance specific id to enable unique styling
-		 *
-		 * @method get_instance_id
-		 * @param  number $n number of characters.
-		 * @return string random string
-		 */
+	/**
+	 * Create instance specific id to enable unique styling
+	 *
+	 * @method get_instance_id
+	 * @param  number $n number of characters.
+	 * @return string random string
+	 */
 	public function get_instance_id( $n ) {
 
 		$characters  = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

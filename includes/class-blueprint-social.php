@@ -184,17 +184,17 @@ class Blueprint_Social {
 
 		$shortcodes = new Blueprint_Social_Shortcodes( $this->get_plugin_name(), $this->get_version() );
 
+		$widget = new Blueprint_Social_Widget( $this->get_plugin_name(), $this->get_version() );
+
 		$this->loader->add_filter( 'blueprint_rest_fields', $plugin_admin, 'add_rest_fields' );
 
 		$this->loader->add_action( 'init', $plugin_admin, 'register_blocks' );
 
 		$this->loader->add_action( 'widgets_init', $plugin_admin, 'register_widgets' );
 
-		// $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $widget, 'enqueue_scripts' );
 
-		// $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
-		// $this->loader->add_action( 'customize_preview_init', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_footer-widgets.php', $widget, 'print_scripts', 9999 );
 	}
 
 	/**

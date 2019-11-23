@@ -108,7 +108,7 @@ class Blueprint_Social_Public {
 			$hover_filter = '-webkit-filter: grayscale(0%); filter: grayscale(0%);';
 		}
 
-			$style = sprintf(
+			$style = printf(
 				'<style type="text/css" id="blueprint-social-custom">
 					ul.blueprint-social li a {
 						background-color: %1$s;
@@ -124,17 +124,15 @@ class Blueprint_Social_Public {
 					}
 					%8$s
 				</style>',
-				sanitize_hex_color( $button_bg ),
-				sanitize_hex_color( $button_color ),
+				esc_html( $button_bg ),
+				esc_html( $button_color ),
 				intval( $border_radius ),
-				$filter,
-				sanitize_hex_color( $hover_bg ),
-				sanitize_hex_color( $hover_color ),
-				$hover_filter,
+				esc_html( $filter ),
+				esc_html( $hover_bg ),
+				esc_html( $hover_color ),
+				esc_html( $hover_filter ),
 				stripslashes( wp_kses_post( $custom_css ) )
 			);
-
-		echo $style;
 	}
 
 	public static function get_display_links( $include = false, $exclude = false, $echo = true ) {
@@ -162,6 +160,7 @@ class Blueprint_Social_Public {
 				$network  = $link['network'];
 				$url      = $link['url'];
 				$add_link = true;
+				$mailto   = '';
 
 				if ( ! empty( $include ) ) {
 					$add_link = false;
@@ -175,16 +174,11 @@ class Blueprint_Social_Public {
 					$add_link = false;
 				}
 
-				if ( 'email' === $network ) {
-					$url = sanitize_email( $url );
-				} else {
-					$url = esc_url( $url );
-				}
-
 				$item = sprintf(
-					'<li><a href="%1$s" class="%2$s icon-%2$s" target="_blank"><span>%2$s</span></a></li>',
-					$url,
-					esc_attr( $network )
+					'<li><a href="%3$s%1$s" class="%2$s icon-%2$s" target="_blank"><span>%2$s</span></a></li>',
+					'email' === $network ? sanitize_email( $url ) : esc_url( $url ),
+					esc_attr( $network ),
+					'email' === $network ? 'mailto:' : ''
 				);
 
 				if ( ( $network && $url ) && $add_link ) {
