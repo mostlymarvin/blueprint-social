@@ -9,6 +9,14 @@
 	],
 "creatorBuild": "31491",
 "files": {
+	"/.babelrc": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/.babelrc",
+		"oF": 0
+		},
 	"/.gitignore": {
 		"cB": 0,
 		"ft": 8192,
@@ -16,6 +24,127 @@
 		"oA": 0,
 		"oAP": "/.gitignore",
 		"oF": 0
+		},
+	"/admin/blocks/dist/blocks.build.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/admin/blocks/dist/blocks.build-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"/admin/blocks/dist/blocks.editor.build.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "/admin/blocks/dist/blocks.editor.build-min.css",
+		"oF": 0,
+		"oS": 3
+		},
+	"/admin/blocks/dist/blocks.style.build.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "/admin/blocks/dist/blocks.style.build-min.css",
+		"oF": 0,
+		"oS": 3
+		},
+	"/admin/blocks/src/blocks.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/admin/blocks/src/blocks-min.js",
+		"oF": 1,
+		"sC": 3,
+		"tS": 0
+		},
+	"/admin/blocks/src/init.php": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 1,
+		"oAP": "/admin/blocks/src/init.php",
+		"oF": 1
+		},
+	"/admin/blocks/src/scss/editor.scss": {
+		"aP": 0,
+		"bl": 0,
+		"dP": 10,
+		"dS": 0,
+		"ft": 4,
+		"ma": 0,
+		"oA": 1,
+		"oAP": "/admin/blocks/src/scss/editor.css",
+		"oF": 1,
+		"oS": 0,
+		"uL": 1
+		},
+	"/admin/blocks/src/scss/style.scss": {
+		"aP": 0,
+		"bl": 0,
+		"dP": 10,
+		"dS": 0,
+		"ft": 4,
+		"ma": 0,
+		"oA": 1,
+		"oAP": "/admin/blocks/src/scss/style.css",
+		"oF": 1,
+		"oS": 0,
+		"uL": 1
+		},
+	"/admin/blocks/src/social-links/block.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/admin/blocks/src/social-links/block-min.js",
+		"oF": 1,
+		"sC": 0,
+		"tS": 0
+		},
+	"/admin/blocks/src/social-links/editor.scss": {
+		"aP": 0,
+		"bl": 0,
+		"dP": 10,
+		"dS": 0,
+		"ft": 4,
+		"ma": 0,
+		"oA": 1,
+		"oAP": "/admin/blocks/src/social-links/editor.css",
+		"oF": 1,
+		"oS": 0,
+		"uL": 1
+		},
+	"/admin/blocks/src/social-links/index.php": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 1,
+		"oAP": "/admin/blocks/src/social-links/index.php",
+		"oF": 1
+		},
+	"/admin/blocks/src/social-links/style.scss": {
+		"aP": 0,
+		"bl": 0,
+		"dP": 10,
+		"dS": 0,
+		"ft": 4,
+		"ma": 0,
+		"oA": 1,
+		"oAP": "/admin/blocks/src/social-links/style.css",
+		"oF": 1,
+		"oS": 0,
+		"uL": 1
 		},
 	"/admin/class-blueprint-social-admin.php": {
 		"cB": 0,
@@ -137,12 +266,12 @@
 		"oAP": "/admin/shortcodes/class-blueprint-social-shortcodes.php",
 		"oF": 0
 		},
-	"/blueprint-social.code-workspace": {
+	"/admin/widgets/class-blueprint-social-widget.php": {
 		"cB": 0,
 		"ft": 8192,
 		"hM": 0,
 		"oA": 0,
-		"oAP": "/blueprint-social.code-workspace",
+		"oAP": "/admin/widgets/class-blueprint-social-widget.php",
 		"oF": 0
 		},
 	"/blueprint-social.php": {
@@ -224,6 +353,28 @@
 		"oA": 0,
 		"oAP": "/LICENSE.txt",
 		"oF": 0
+		},
+	"/node_modules": {
+		"ft": 65536,
+		"oA": 2,
+		"oAP": "/build/node_modules",
+		"oF": 0
+		},
+	"/package-lock.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "/package-lock-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"/package.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "/package-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
 		},
 	"/public/class-blueprint-social-public.php": {
 		"cB": 0,
@@ -325,14 +476,6 @@
 		"oAP": "/public/partials/blueprint-social-public-display.php",
 		"oF": 0
 		},
-	"/README.html": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/README.html",
-		"oF": 0
-		},
 	"/README.md": {
 		"cB": 0,
 		"cS": 0,
@@ -352,14 +495,6 @@
 		"rFN": 0,
 		"uCM": 0
 		},
-	"/README.txt": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/README.txt",
-		"oF": 0
-		},
 	"/uninstall.php": {
 		"cB": 0,
 		"ft": 8192,
@@ -367,6 +502,17 @@
 		"oA": 0,
 		"oAP": "/uninstall.php",
 		"oF": 0
+		},
+	"/webpack.config.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 0,
+		"oA": 1,
+		"oAP": "/webpack.config-min.js",
+		"oF": 1,
+		"sC": 0,
+		"tS": 0
 		}
 	},
 "hooks": [

@@ -118,16 +118,24 @@ class Blueprint_Social {
 		require_once BLUEPRINT_SOCIAL_PLUGIN_DIR . 'admin/class-blueprint-social-admin.php';
 
 		/**
+		 * Block Dependencies
+		 */
+		require_once BLUEPRINT_SOCIAL_PLUGIN_DIR . 'admin/blocks/src/init.php';
+
+		/**
 		 * The classes responsible for defining shortcodes
 		 */
 		require_once BLUEPRINT_SOCIAL_PLUGIN_DIR . 'admin/shortcodes/class-blueprint-social-shortcodes.php';
 
+		/**
+		 * The classes responsible for defining widgets
+		 */
+		require_once BLUEPRINT_SOCIAL_PLUGIN_DIR . 'admin/widgets/class-blueprint-social-widget.php';
 
-    /**
-    * The Class responsible for defining available networks
-    */
-    require_once BLUEPRINT_SOCIAL_PLUGIN_DIR . 'admin/class-blueprint-social-networks.php';
-
+		/**
+		* The Class responsible for defining available networks
+		*/
+		require_once BLUEPRINT_SOCIAL_PLUGIN_DIR . 'admin/class-blueprint-social-networks.php';
 
 		/**
 		 * The classes responsible for setting up Customizer
@@ -135,7 +143,6 @@ class Blueprint_Social {
 		require_once BLUEPRINT_SOCIAL_PLUGIN_DIR . 'admin/customizer/class-blueprint-social-custom-link-control.php';
 
 		require_once BLUEPRINT_SOCIAL_PLUGIN_DIR . 'admin/customizer/class-blueprint-social-customizer.php';
-
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
@@ -179,13 +186,15 @@ class Blueprint_Social {
 
 		$this->loader->add_filter( 'blueprint_rest_fields', $plugin_admin, 'add_rest_fields' );
 
-    //$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+		$this->loader->add_action( 'init', $plugin_admin, 'register_blocks' );
 
-		//$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'widgets_init', $plugin_admin, 'register_widgets' );
 
-		//$this->loader->add_action( 'customize_preview_init', $plugin_admin, 'enqueue_scripts' );
+		// $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 
+		// $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		// $this->loader->add_action( 'customize_preview_init', $plugin_admin, 'enqueue_scripts' );
 	}
 
 	/**
@@ -204,7 +213,7 @@ class Blueprint_Social {
 
 		$this->loader->add_action( 'customize_register', $customize, 'register_customizer' );
 
-		$this->loader->add_action( 'customize_register', $customize, 'register_display_customizer'  );
+		$this->loader->add_action( 'customize_register', $customize, 'register_display_customizer' );
 	}
 
 	/**
@@ -221,7 +230,7 @@ class Blueprint_Social {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
-		$this->loader->add_action( 'wp_head', $plugin_public, 'custom_css');
+		$this->loader->add_action( 'wp_head', $plugin_public, 'custom_css' );
 	}
 
 	/**

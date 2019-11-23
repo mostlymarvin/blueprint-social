@@ -44,13 +44,13 @@ class Blueprint_Social_Admin {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @param      string $plugin_name       The name of this plugin.
+	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
 
 	}
 
@@ -96,30 +96,84 @@ class Blueprint_Social_Admin {
 		 * class.
 		 */
 
-		//wp_enqueue_script( 'jquery-ui-sortable' );
+		// wp_enqueue_script( 'jquery-ui-sortable' );
 
-		//wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/blueprint-social-admin.js', array( 'jquery' ), $this->version, false );
-
+		// wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/blueprint-social-admin.js', array( 'jquery' ), $this->version, false );
 	}
 
 	public function add_rest_fields( $rest_fields ) {
+
 		$social_links = get_option( 'blueprint_social', array() );
-  	$social_links = json_decode( $social_links, true );
+		$social_links = json_decode( $social_links, true );
 
 		$social_display = get_option( 'blueprint_social_display', array() );
 
-    $networks = Blueprint_Social_Networks::get_networks();
+		$networks = Blueprint_Social_Networks::get_networks();
 
 		$rest_fields['blueprint_social'] = array(
-			'status' => 'active',
-			'links' => $social_links,
-			'display' => $social_display,
-      'networks' => $networks,
-		 );
-     
+			'status'   => 'active',
+			'links'    => $social_links,
+			'display'  => $social_display,
+			'networks' => $networks,
+		);
+
 		return $rest_fields;
 	}
 
+	public function register_widgets() {
 
+		register_widget( 'Blueprint_Social_Widget' );
+	}
+
+	public function register_blocks() {
+
+		wp_enqueue_script( 'wp-api' );
+
+		// Register our block script with WordPress
+		wp_register_script(
+			'blueprint-social',
+			BLUEPRINT_SOCIAL_PLUGIN_URL . 'admin/blocks/dist/blocks.build.js',
+			array( 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-editor' )
+		);
+
+		// Register our block's base CSS
+		wp_register_style(
+			'blueprint-social-style',
+			BLUEPRINT_SOCIAL_PLUGIN_URL . 'admin/blocks/dist/blocks.style.build.css',
+			array()
+		);
+
+		// Register our block's editor-specific CSS
+		wp_register_style(
+			'blueprint-social-editor-style',
+			BLUEPRINT_SOCIAL_PLUGIN_URL . 'admin/blocks/dist/blocks.editor.build.css',
+			array( 'wp-edit-blocks' )
+		);
+
+		$blocks = array(
+			array(
+				'name' => 'social-links',
+			// 'blueprint_blocks_dynamic_recent_posts_block',
+			),
+		);
+
+		foreach ( $blocks as $block ) {
+			$render_cb = '';
+
+			if ( ! empty( $block['render_callback'] ) ) {
+				$render_cb = $block['render_callback'];
+			}
+			// Enqueue the script in the editor
+			register_block_type(
+				'blueprint-social/' . $block['name'],
+				array(
+					'style'           => 'blueprint-social-style',
+					'editor_script'   => 'blueprint-social',
+					'editor_style'    => 'blueprint-social-editor-style',
+					'render_callback' => $render_cb,
+				)
+			);
+		}
+	}
 
 }

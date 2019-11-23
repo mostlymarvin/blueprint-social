@@ -12,88 +12,108 @@ ul.blueprint-social {
   margin: 0;
   padding-left: 0;
   display: flex; }
-  nav.wrap-wrap ul.blueprint-social {
+  .wrap-wrap ul.blueprint-social {
     flex-wrap: wrap; }
-  nav.flex-column ul.blueprint-social {
+  .flex-column ul.blueprint-social {
     flex-direction: column; }
-  nav.flex-row-reverse ul.blueprint-social {
+  .flex-row-reverse ul.blueprint-social {
     flex-direction: row-reverse; }
-  nav.justify-center.flex-row ul.blueprint-social,
-  nav.justify-center.flex-row-reverse ul.blueprint-social {
+  .justify-center.flex-row ul.blueprint-social,
+  .justify-center.flex-row-reverse ul.blueprint-social {
     justify-content: center; }
-  nav.justify-none.flex-row ul.blueprint-social,
-  nav.justify-none.flex-row-reverse ul.blueprint-social,
-  nav.justify-start.flex-row ul.blueprint-social,
-  nav.justify-start.flex-row-reverse ul.blueprint-social {
+  .justify-none.flex-row ul.blueprint-social,
+  .justify-none.flex-row-reverse ul.blueprint-social,
+  .justify-start.flex-row ul.blueprint-social,
+  .justify-start.flex-row-reverse ul.blueprint-social {
     justify-content: flex-start; }
-  nav.justify-end.flex-row ul.blueprint-social,
-  nav.justify-end.flex-row-reverse ul.blueprint-social {
+  .justify-end.flex-row ul.blueprint-social,
+  .justify-end.flex-row-reverse ul.blueprint-social {
     justify-content: flex-end; }
 
 ul.blueprint-social li {
-  display: inline-block;
-  width: max-content; }
+  display: block;
+  width: max-content;
+  margin-left: 0 !important;
+  margin-right: 0.5em;
+  margin-bottom: 0 !important; }
+  .justify-end ul.blueprint-social li {
+    margin-right: 0;
+    margin-left: 0.5em !important; }
 
-ul.blueprint-social li a:after, ul.blueprint-social li:before {
+ul.blueprint-social li a:after,
+ul.blueprint-social li:before {
   display: none; }
 
 ul.blueprint-social li a {
+  box-sizing: content-box;
   display: inline-block;
   height: 40px;
+  letter-spacing: 0 !important;
   line-height: 40px;
-  margin: 0 .2em .2em 0;
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
   text-align: center;
   width: 40px;
   text-decoration: none;
-  border-bottom: none; }
+  border-bottom: none;
+  padding: 0 !important; }
   .size-mini ul.blueprint-social li a {
     height: 20px;
-    line-height: 19px;
+    line-height: 20px;
     width: 20px; }
   .size-small ul.blueprint-social li a {
     height: 30px;
-    line-height: 29px;
+    line-height: 30px;
     width: 30px; }
   .size-large ul.blueprint-social li a {
     height: 60px;
     line-height: 60px;
     width: 60px; }
+  .size-xlarge ul.blueprint-social li a {
+    height: 80px;
+    line-height: 80px;
+    width: 80px; }
 
 ul.blueprint-social li a span {
   display: none; }
 
-[class^="icon-"]:before, [class*=" icon-"]:before {
-  color: inherit;
-  display: inline-block;
-  font-family: "blueprint-social" !important;
-  -webkit-font-smoothing: antialiased;
+.bpicon:before,
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
   -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  color: inherit;
+  display: block;
+  font-family: "blueprint-social" !important;
   font-size: 24px;
   font-style: normal;
-  font-weight: normal;
   font-variant: normal;
-  height: 40px;
+  font-weight: normal;
+  height: 100%;
   line-height: inherit;
   position: relative;
+  speak: none;
+  text-align: center;
   text-align: center;
   text-decoration: inherit;
   text-transform: none;
-  speak: none;
-  text-align: center;
-  width: 40px;
-  vertical-align: middle; }
-  nav.size-small [class^="icon-"]:before, nav.size-small [class*=" icon-"]:before {
-    font-size: 18px;
-    height: 30px;
-    width: 30px; }
-  nav.size-large [class^="icon-"]:before, nav.size-large [class*=" icon-"]:before {
-    font-size: 34px;
-    height: 60px;
-    width: 60px; }
-  nav.size-mini [class^="icon-"]:before, nav.size-mini [class*=" icon-"]:before {
-    font-size: 13px;
-    height: 20px;
-    width: 20px; }
+  width: 100%; }
+  .size-mini .bpicon:before, .size-mini
+  [class^="icon-"]:before, .size-mini
+  [class*=" icon-"]:before {
+    font-size: 11px !important; }
+  .size-small .bpicon:before, .size-small
+  [class^="icon-"]:before, .size-small
+  [class*=" icon-"]:before {
+    font-size: 18px !important; }
+  .size-large .bpicon:before, .size-large
+  [class^="icon-"]:before, .size-large
+  [class*=" icon-"]:before {
+    font-size: 34px !important; }
+  .size-xlarge .bpicon:before, .size-xlarge
+  [class^="icon-"]:before, .size-xlarge
+  [class*=" icon-"]:before {
+    font-size: 48px !important; }
 
 .icon-address-book:before {
   content: '\e800'; }

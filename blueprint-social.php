@@ -3,7 +3,7 @@
 /**
  * The plugin bootstrap file
  *
- * This file is read by WordPress to generate the plugin information in 
+ * This file is read by WordPress to generate the plugin information in
  * the plugin admin area. This file also includes all of the dependencies
  * used by the plugin, registers the activation and deactivation functions,
  * and defines a function that starts the plugin.
@@ -37,7 +37,8 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'BLUEPRINT_SOCIAL_VERSION', '1.0.0' );
 define( 'BLUEPRINT_SOCIAL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-
+define( 'BLUEPRINT_SOCIAL_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+define( 'BLUEPRINT_SOCIAL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 /**
  * The code that runs during plugin activation.
